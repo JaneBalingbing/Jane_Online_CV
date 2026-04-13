@@ -1,0 +1,485 @@
+/* ========================================
+   RESET & VARIABLES
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-start: #eef2fb;
+    --bg-end: #e0e8f2;
+    --card-bg: #ffffff;
+    --text-dark: #1a2c3e;
+    --text-light: #2c3e50;
+    --sidebar-bg: #0a2f44;
+    --sidebar-text: #f4f9ff;
+    --primary: #0b7d77;
+    --primary-light: #289672;
+    --accent: #6abf9e;
+    --border: #d4e0e9;
+    --shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    --shadow-hover: 0 25px 40px -12px rgba(0,0,0,0.2);
+    --cert-badge-bg: #eef2fa;
+}
+
+body.dark {
+    --bg-start: #0e1622;
+    --bg-end: #111927;
+    --card-bg: #1a1f2e;
+    --text-dark: #edf2fb;
+    --text-light: #cbd5e6;
+    --sidebar-bg: #051e2c;
+    --sidebar-text: #e2e8f0;
+    --primary: #48bb9a;
+    --primary-light: #6fcfb0;
+    --accent: #86d4bb;
+    --border: #2a3448;
+    --cert-badge-bg: #232a3c;
+}
+
+body {
+    background: radial-gradient(circle at 10% 20%, var(--bg-start), var(--bg-end));
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   BUTTONS & UTILITIES
+======================================== */
+.top-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 14px;
+    z-index: 1200;
+}
+
+.icon-btn {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    width: 48px;
+    height: 48px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 1.3rem;
+    transition: all 0.2s;
+}
+
+body.dark .icon-btn {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.icon-btn:hover {
+    transform: translateY(-5px);
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    transform: scale(1.03);
+    background: var(--primary-light);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ========================================
+   HOME PAGE
+======================================== */
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.circular-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--sidebar-bg);
+    box-shadow: var(--shadow);
+}
+
+.home-card {
+    background: var(--card-bg);
+    max-width: 700px;
+    width: 100%;
+    border-radius: 40px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.home-card h1 {
+    font-size: 2.7rem;
+    font-weight: 800;
+    margin-top: 1.5rem;
+    background: linear-gradient(125deg, var(--primary), #8ed4c0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ========================================
+   RESUME CONTAINER
+======================================== */
+.resume-container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    background: var(--card-bg);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: none; /* Hidden initially */
+}
+
+.resume-grid {
+    display: grid;
+    grid-template-columns: 32% 68%;
+}
+
+/* ========================================
+   SIDEBAR
+======================================== */
+.sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 3rem 2rem;
+}
+
+.sidebar .circular-pic {
+    width: 140px;
+    height: 140px;
+    border-color: var(--accent);
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 2.5rem 0 1rem 0;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+}
+
+.skill-badge {
+    background: rgba(255,255,255,0.1);
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin: 0.3rem;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+.main-content {
+    background: var(--card-bg);
+    padding: 3rem;
+}
+
+.section-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 3px solid var(--border);
+    padding-bottom: 0.8rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.section-header:first-of-type {
+    margin-top: 0;
+}
+
+.info-card {
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    background: var(--bg-start);
+    border-color: var(--accent);
+}
+
+/* ========================================
+   CERTIFICATES GRID
+======================================== */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 2rem 0;
+}
+
+.cert-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary);
+}
+
+.cert-img-wrapper {
+    position: relative;
+    background: #f8fafc;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    height: 140px;
+}
+
+body.dark .cert-img-wrapper {
+    background: rgba(0,0,0,0.2);
+}
+
+.cert-img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.verified-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(11, 125, 119, 0.9);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cert-details {
+    padding: 1.2rem;
+}
+
+.cert-details h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+.issuer-meta {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.view-btn {
+    background: transparent;
+    border: 1.5px solid var(--primary);
+    padding: 7px 18px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--primary);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.view-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.initiative-note {
+    background: var(--cert-badge-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-left: 4px solid var(--primary);
+}
+
+/* ========================================
+   CONTACT BLOCK
+======================================== */
+.contact-block {
+    background: var(--bg-start);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.contact-block p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* ========================================
+   MODAL
+======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1500;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-box {
+    background: var(--card-bg);
+    max-width: 600px;
+    width: 90%;
+    border-radius: 24px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--border);
+}
+
+.modal-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: #f1f5f9;
+    padding: 10px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+/* ========================================
+   TOAST
+======================================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ========================================
+   RESPONSIVE MEDIA QUERIES
+======================================== */
+@media (max-width: 992px) {
+    .resume-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 2rem;
+    }
+    .home-card h1 {
+        font-size: 2rem;
+    }
+    .circular-pic {
+        width: 150px;
+        height: 150px;
+    }
+}
